@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Vyuka" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Vyuka.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="cv11.Properties.Settings" SettingsPropertyName="VyukaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Marks" Member="Marks">
+    <Type Name="Mark">
+      <Column Name="StudentId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Mark" Member="Mark1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Student_Mark" Member="Student" ThisKey="StudentId" OtherKey="Id" Type="Student" IsForeignKey="true" />
+      <Association Name="Subject_Mark" Member="Subject1" ThisKey="Subject" OtherKey="Abbreviation" Type="Subject" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Registration" Member="Registrations">
+    <Type Name="Registration">
+      <Column Name="StudentId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Student_Registration" Member="Student" ThisKey="StudentId" OtherKey="Id" Type="Student" IsForeignKey="true" />
+      <Association Name="Subject_Registration" Member="Subject1" ThisKey="Subject" OtherKey="Abbreviation" Type="Subject" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Students" Member="Students">
+    <Type Name="Student">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Student_Mark" Member="Marks" ThisKey="Id" OtherKey="StudentId" Type="Mark" />
+      <Association Name="Student_Registration" Member="Registrations" ThisKey="Id" OtherKey="StudentId" Type="Registration" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subjects" Member="Subjects">
+    <Type Name="Subject">
+      <Column Name="Abbreviation" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Subject_Mark" Member="Marks" ThisKey="Abbreviation" OtherKey="Subject" Type="Mark" />
+      <Association Name="Subject_Registration" Member="Registrations" ThisKey="Abbreviation" OtherKey="Subject" Type="Registration" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudentCountView" Member="StudentCountViews">
+    <Type Name="StudentCountView">
+      <Column Name="Subject" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Students" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
